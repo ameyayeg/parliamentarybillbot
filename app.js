@@ -9,21 +9,24 @@ function getGovernmentBills() {
 } 
 
     new CronJob(
-        '0 7 * * *', // everyday at 7 am
+        '* * * * *', // everyday at 7 am
         function() {
             // Call Twitter BOT to post new Tweet
             getGovernmentBills()
                 .then(response => {
                     const allBills = response.data
-                    const governmentBills = allBills.filter(bill => bill.IsGovernmentBill)
-                    const formattedBills = governmentBills.map(bill => `${bill.NumberCode}: ${bill.StatusName}.`)
-                    let date = new Date().toLocaleString('en-US', {
-                        timeZone: 'America/New_York',
-                      })
-                    const tweetText = `${date}\n${formattedBills.join('\r\n')}\nMore information: https://www.parl.ca/legisinfo/`
-                    postTweet(tweetText)
+                    let date = new Date().toLocaleDateString()
+                    if(allBills.length === 0) {
+                        const tweetText = `${date}\nParliament is not sitting today.`
+                        postTweet(tweetText)
+                    } else {
+                        const governmentBills = allBills.filter(bill => bill.IsGovernmentBill)
+                        const formattedBills = governmentBills.map(bill => `${bill.NumberCode}: ${bill.StatusName}.`)
+                        const tweetText = `${date}\n${formattedBills.join('\r\n')}\nMore information: https://www.parl.ca/legisinfo/`
+                        postTweet(tweetText)
+                    }
                 }).catch(err => {
-                    postTweet("No sitting")
+                    postTweet("Having technical difficulties.")
                 })
         },
         null,
