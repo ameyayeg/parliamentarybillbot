@@ -8,8 +8,9 @@ function getGovernmentBills() {
     return axios.get(url)
 } 
 
+
     new CronJob(
-        '0 7 * * *', // everyday at 7 am
+        '* * * * *', // everyday at 7 am
         function() {
             // Call Twitter BOT to post new Tweet
             getGovernmentBills()
@@ -21,9 +22,14 @@ function getGovernmentBills() {
                         postTweet(tweetText)
                     } else {
                         const governmentBills = allBills.filter(bill => bill.IsGovernmentBill)
-                        const formattedBills = governmentBills.map(bill => `${bill.NumberCode}: ${bill.StatusName}.`)
-                        const tweetText = `${date}\n${formattedBills.join('\r\n')}\nMore information: https://www.parl.ca/legisinfo/`
-                        postTweet(tweetText)
+                        if(governmentBills.length === 0) {
+                            const tweetText = `${date}\nNo government bills being debated today.`
+                            postTweet(tweetText)
+                        } else {
+                            const formattedBills = governmentBills.map(bill => `${bill.NumberCode}: ${bill.StatusName}.`)
+                            const tweetText = `${date}\n${formattedBills.join('\r\n')}\nMore information: https://www.parl.ca/legisinfo/`
+                            postTweet(tweetText)
+                        }
                     }
                 }).catch(err => {
                     postTweet("Having technical difficulties.")
