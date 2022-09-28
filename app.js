@@ -16,16 +16,16 @@ function getGovernmentBills() {
                 .then(response => {
                     const allBills = response.data
                     if(allBills.length === 0) {
-                        const tweetText = `${new Date().toLocaleDateString()}\nParliament is not sitting today.\nMore information: https://www.parl.ca/legisinfo/`
+                        const tweetText = `${new Date('en-GB').toLocaleDateString()}\nParliament is not sitting today.\nMore information: https://www.parl.ca/legisinfo/`
                         postTweet(tweetText)
                     } else {
                         const governmentBills = allBills.filter(bill => bill.IsGovernmentBill)
                         if(governmentBills.length === 0) {
-                            const tweetText = `${new Date().toLocaleDateString()}\nNo government bills being debated today.\nMore information: https://www.parl.ca/legisinfo/`
+                            const tweetText = `${new Date('en-GB').toLocaleDateString()}\nNo government bills being debated today.\nMore information: https://www.parl.ca/legisinfo/`
                             postTweet(tweetText)
                         } else {
                             const formattedBills = governmentBills.map(bill => `${bill.NumberCode}: ${bill.StatusName}.`)
-                            const tweetText = `${new Date().toLocaleDateString()}\n${formattedBills.join('\r\n')}\nMore information: https://www.parl.ca/legisinfo/`
+                            const tweetText = `${new Date('en-GB').toLocaleDateString()}\n${formattedBills.join('\r\n')}\nMore information: https://www.parl.ca/legisinfo/`
                             postTweet(tweetText)
                         }
                     }
