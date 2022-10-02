@@ -36,7 +36,7 @@ TWITTER_API_SECRET="INSERT VARIABLE HERE"
 TWITTER_ACCESS_TOKEN="INSERT VARIABLE HERE"
 TWITTER_ACCESS_TOKEN_SECRET="INSERT VARIABLE HERE"
 ```
-Then use ```node app.js``` in your terminal to spin up a local development server and you'll see the day's government bills tweeted out by your bot at 7 a.m. ET.
+Then use ```$ node app.js``` in your terminal to spin up a local development server and you'll see the day's government bills tweeted out by your bot at 7 a.m. ET.
 
 <img width="597" alt="Screenshot 2022-10-02 at 19 07 11" src="https://user-images.githubusercontent.com/91851828/193480354-3027484a-bd84-44c0-b61d-09cb89361a62.png">
 
