@@ -8,7 +8,6 @@ The project uses the following technologies:
   <li>Node</li>
   <li>Twitter API</li>
   <li>Axios</li>
-  <li>Node</li>
   <li>Cron Job</li>
 </ul>
 
