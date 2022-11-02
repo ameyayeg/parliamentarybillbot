@@ -18,22 +18,21 @@ function getGovernmentBills() {
                 .then(response => {
                     const allBills = response.data
                     if(allBills.length === 0) {
-                        const tweetText = `${new Date().toLocaleDateString('en-GB')}\nParliament is not sitting today.\nMore information: https://www.parl.ca/legisinfo/`
+                        const tweetText = `${new Date().toLocaleDateString('en-GB')}\nParliament is not sitting today.\nMore information: https://www.parl.ca/legisinfo/\n#cdnpoli`
                         postTweet(tweetText)
                     } else {
                         const governmentBills = allBills.filter(bill => bill.IsGovernmentBill)
                         if(governmentBills.length === 0) {
-                            const tweetText = `${new Date().toLocaleDateString('en-GB')}\nNo government bills being debated today.\nMore information: https://www.parl.ca/legisinfo/`
+                            const tweetText = `${new Date().toLocaleDateString('en-GB')}\nNo government bills being debated today.\nMore information: https://www.parl.ca/legisinfo/\n#cdnpoli`
                             postTweet(tweetText)
                         } else {
-                            // const formattedBills = governmentBills.map(bill => `${bill.NumberCode}: ${bill.StatusName}.`)
                             function checkStatus(status) {
                                 if(status === 'At first reading in the House of Commons') {
                                     return '1st reading in @HoCChamber'
                                 } else if(status === 'At second reading in the House of Commons') {
                                     return '2nd reading in @HoCChamber'
                                 } else if(status === 'At third reading in the House of Commons') {
-                                    return '2nd reading in @HoCChamber'
+                                    return '3rd reading in @HoCChamber'
                                 } else if(status === 'At first reading in the Senate') {
                                     return '1st reading in @SenateCA'
                                 } else if(status === 'At second reading in the Senate') {
@@ -47,8 +46,14 @@ function getGovernmentBills() {
                                 }
                             }
                             const formattedBills = governmentBills.map(bill => `${bill.NumberCode} - ${bill.ShortTitle}: ${checkStatus(bill.StatusName)}.`)
-                            const tweetText = `${new Date().toLocaleDateString('en-GB')}\n${formattedBills.join('\r\n')}\nMore information: https://www.parl.ca/legisinfo/`
-                            postTweet(tweetText)
+                            const tweetText = `${new Date().toLocaleDateString('en-GB')}\n${formattedBills.join('\r\n')}\n#cdnpoli`
+                            if(tweetText.length > 280) {
+                                const formattedBills = governmentBills.map(bill => `${bill.NumberCode}: ${bill.StatusName}.`)
+                                postTweet(`${new Date().toLocaleDateString('en-GB')}\n${formattedBills.join('\r\n')}\nMore information: https://www.parl.ca/legisinfo/ \n#cdnpoli`)
+                            } else {
+                                postTweet(tweetText)
+                            }
+                            
                         }
                     }
                 }).catch(err => {
