@@ -32,7 +32,7 @@ new CronJob(
           } else {
             const formattedBills = governmentBills.map(
               (bill) =>
-                `${bill.NumberCode} - ${bill.LongTitle}(http://www.parl.ca/legisinfo/en/bill/${bill.ParliamentNumber}-${bill.SessionNumber}/${bill.NumberCode}): ${bill.StatusName}.`
+                `${bill.NumberCode} - ${bill.LongTitle} (http://www.parl.ca/legisinfo/en/bill/${bill.ParliamentNumber}-${bill.SessionNumber}/${bill.NumberCode}): ${bill.StatusName}.`
             )
             const tweetText = `${new Date().toLocaleDateString(
               'en-GB'
