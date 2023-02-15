@@ -36,7 +36,7 @@ new CronJob(
             )
             const tweetText = `${new Date().toLocaleDateString(
               'en-GB'
-            )}\n${formattedBills.join('\r\n')}\n#cdnpoli`
+            )}\n\n${formattedBills.join('\r\n\n')}\n\n#cdnpoli`
             tweetThread(tweetText)
           }
         }
