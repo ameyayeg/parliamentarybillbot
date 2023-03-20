@@ -18,7 +18,7 @@ new CronJob(
         if (allBills.length === 0) {
           const tweetText = `${new Date().toLocaleDateString(
             'en-GB'
-          )}\nParliament is not sitting today.\nMore information: https://www.parl.ca/legisinfo/\n#cdnpoli`
+          )}\nNo government bills being debated today.\nMore information: https://www.parl.ca/legisinfo/\n#cdnpoli`
           tweetThread(tweetText)
         } else {
           const governmentBills = allBills.filter(
